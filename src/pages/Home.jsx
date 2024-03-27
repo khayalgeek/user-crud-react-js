@@ -12,6 +12,15 @@ export default class Home extends Component {
 
             ]
         }
+
+    }
+
+    addUser(user) {
+        this.setState(
+            ...this.state,
+            this.state.users.push(user)
+        )
+        
     }
 
     render() {
@@ -19,8 +28,12 @@ export default class Home extends Component {
             <Navbars />
             <UserContainer>
                 {this.state.users ?
-                    <AlertEmptyUserList text={"Empty user list !"} /> :
-                    <UserList userList={this.state.users} />
+                    <AlertEmptyUserList
+                        text={"Empty user list !"}
+                    /> :
+                    <UserList
+                        userList={this.state.users}
+                    />
                 }
 
             </UserContainer>
