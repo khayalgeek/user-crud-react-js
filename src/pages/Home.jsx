@@ -7,7 +7,7 @@ export default class Home extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            userList: [
+            users: [
                 {
                     id: 1,
                     name: "Test",
@@ -22,7 +22,7 @@ export default class Home extends Component {
         return <>
             <Navbars />
             <UserContainer>
-                <UserList userList={this.state.userList}/>
+                <UserList userList={this.state.users}/>
             </UserContainer>
         </>
     }
