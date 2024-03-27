@@ -2,18 +2,14 @@ import { Component } from "react";
 import Navbars from "../components/Navbar";
 import UserContainer from "../components/UserContainer";
 import UserList from "../components/UserList";
+import { AlertEmptyUserList } from "../components/Alert";
 
 export default class Home extends Component {
     constructor(props) {
         super(props)
         this.state = {
             users: [
-                {
-                    id: 1,
-                    name: "Test",
-                    surname: "Testov",
-                    email:"testov@mail.com"
-                }
+
             ]
         }
     }
@@ -22,7 +18,11 @@ export default class Home extends Component {
         return <>
             <Navbars />
             <UserContainer>
-                <UserList userList={this.state.users}/>
+                {this.state.users ?
+                    <AlertEmptyUserList text={"Empty user list !"} /> :
+                    <UserList userList={this.state.users} />
+                }
+
             </UserContainer>
         </>
     }
