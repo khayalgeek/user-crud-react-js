@@ -10,8 +10,6 @@ const deleteUserById = (id) => {
     alert(`delete action: ${id}`);
 };
 
-
-
 const UserList = ({ userList }) => {
     return (
         <Table
