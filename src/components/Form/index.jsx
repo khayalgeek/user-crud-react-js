@@ -1,4 +1,5 @@
 import React from "react";
+import {v4 as uuidv} from 'uuid';
 import {
     Button,
     Form,
@@ -21,12 +22,20 @@ const setValue = (obj, key, value) => {
 
 
 const UserForm = ({ isShowModal, toggleModal, addUser }) => {
+
+
     const [form, setForm] = React.useState({
-        id: null,
         name: "",
         surname: "",
         email: ""
     })
+
+    const handleSubmitUserForm = () =>{
+        const id = generateUserId();
+        addUser({...form, id: id});
+    }
+    
+    const generateUserId = () => uuidv().slice(0,4);
 
     return (
         <div>
@@ -81,7 +90,7 @@ const UserForm = ({ isShowModal, toggleModal, addUser }) => {
                 </ModalBody>
                 <ModalFooter>
                     <Button color="primary" onClick={() => {
-                        addUser();
+                        handleSubmitUserForm(); 
                         toggleModal();
                     }}>
                         Add
