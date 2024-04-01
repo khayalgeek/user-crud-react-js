@@ -12,9 +12,9 @@ export const EditBtn = ({id, command }) => {
     >Edit user</button>
 }
 
-export const DeleteBtn = ({id, command }) => {
+export const DeleteBtn = ({command }) => {
     return <button
         className="btn btn-danger"
-        onClick={() => command(id)}
+        onClick={() => command()}
     >Delete user</button>
 }

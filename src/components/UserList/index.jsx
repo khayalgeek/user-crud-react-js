@@ -7,9 +7,6 @@ const editUserById = () => {
 
 };
 
-const deleteUserById = (id) => {
-    alert(`delete action: ${id}`);
-};
 
 export default class UserList extends Component{
     constructor(props){
@@ -61,8 +58,8 @@ export default class UserList extends Component{
                                     {email}
                                 </td>
                                 <td className="d-flex justify-content-around">
-                                    <EditBtn id={id} command={editUserById} />
-                                    <DeleteBtn id={id} command={deleteUserById} />
+                                    <EditBtn command={editUserById} />
+                                    <DeleteBtn command={()=>this.props.deleteUserById(id)} />
                                 </td>
                             </tr>
                         );
@@ -72,8 +69,3 @@ export default class UserList extends Component{
         )
     }
 }
-// const UserList = ({ userList }) => {
-    
-// }
-
-//export default UserList;
