@@ -13,6 +13,7 @@ export default class UserContainer extends Component {
             users: []
         }
         this.deleteUserById = this.deleteUserById.bind(this);
+        this.editUserById = this.editUserById.bind(this)
     }
 
     toggleModal = () => {
@@ -32,7 +33,14 @@ export default class UserContainer extends Component {
             users: prevState.users.filter(user => user.id !== id)
         }));
     }
-    
+
+    editUserById(id) {
+        const { users } = this.state;
+        const user = users.find(user => user.id === id);
+        console.log(user);
+
+    }
+
 
 
     render() {
@@ -48,7 +56,8 @@ export default class UserContainer extends Component {
                             text={"Empty user list !"}
                         /> :
                         <UserList
-                        deleteUserById={this.deleteUserById}
+                            deleteUserById={this.deleteUserById}
+                            editUserById={this.editUserById}
                             userList={this.state.users}
                         />
                     }

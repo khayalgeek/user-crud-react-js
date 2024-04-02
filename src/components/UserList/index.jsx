@@ -2,12 +2,6 @@ import React, { Component } from "react";
 import { Table } from "reactstrap";
 import { DeleteBtn, EditBtn } from "../Buttons";
 
-const editUserById = () => {
-    alert(`edit action: ${id}`);
-
-};
-
-
 export default class UserList extends Component{
     constructor(props){
         super(props)
@@ -57,8 +51,8 @@ export default class UserList extends Component{
                                 <td>
                                     {email}
                                 </td>
-                                <td className="d-flex justify-content-around">
-                                    <EditBtn command={editUserById} />
+                                <td data-id={id} className="d-flex justify-content-around">
+                                    <EditBtn  command={()=>this.props.editUserById(id)} />
                                     <DeleteBtn command={()=>this.props.deleteUserById(id)} />
                                 </td>
                             </tr>

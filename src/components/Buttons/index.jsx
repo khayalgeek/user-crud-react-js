@@ -5,10 +5,10 @@ export const AddBtn = ({ command }) => {
     >Add user</button>
 }
 
-export const EditBtn = ({id, command }) => {
+export const EditBtn = ({command }) => {
     return <button
         className="btn btn-success"
-        onClick={() => command(id)}
+        onClick={() => command()}
     >Edit user</button>
 }
 
