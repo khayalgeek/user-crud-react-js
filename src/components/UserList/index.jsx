@@ -52,7 +52,7 @@ export default class UserList extends Component{
                                     {email}
                                 </td>
                                 <td data-id={id} className="d-flex justify-content-around">
-                                    <EditBtn  command={()=>this.props.editUserById(id)} />
+                                    <EditBtn  command={()=>this.props.toggleModal()} />
                                     <DeleteBtn command={()=>this.props.deleteUserById(id)} />
                                 </td>
                             </tr>

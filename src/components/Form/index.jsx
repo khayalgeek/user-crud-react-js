@@ -21,7 +21,7 @@ const setValue = (obj, key, value) => {
 
 
 
-const UserForm = ({ isShowModal, toggleModal, addUser }) => {
+const UserForm = ({ isShowModal, toggleModal, addUser, editUser }) => {
 
 
     const [form, setForm] = React.useState({
@@ -33,6 +33,10 @@ const UserForm = ({ isShowModal, toggleModal, addUser }) => {
     const handleSubmitUserForm = () =>{
         const id = generateUserId();
         addUser({...form, id: id});
+    }
+
+    const handleSubmitEditUser = () =>{
+        editUser(form)
     }
     
     const generateUserId = () => uuidv().slice(0,4);

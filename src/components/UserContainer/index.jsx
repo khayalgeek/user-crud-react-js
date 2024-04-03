@@ -10,10 +10,12 @@ export default class UserContainer extends Component {
         super(props)
         this.state = {
             isShowModal: false,
+            actionType: "",
             users: []
         }
         this.deleteUserById = this.deleteUserById.bind(this);
-        this.editUserById = this.editUserById.bind(this)
+        this.editUserById = this.editUserById.bind(this);
+        this.changeActionType = this.changeActionType.bind(this);
     }
 
     toggleModal = () => {
@@ -34,20 +36,24 @@ export default class UserContainer extends Component {
         }));
     }
 
-    editUserById(id) {
+    editUserById(id, payload) {
         const { users } = this.state;
-        const user = users.find(user => user.id === id);
-        console.log(user);
-
+        const userId = users.findIndex(user => user.id === id);
+        this.setState(users => ({
+            users: users[userId] = payload
+        }))
     }
 
+    changeActionType(type) {
+        this.setState({ actionType: type })
+    }
 
 
     render() {
         return <div className="container mt-4">
             <div className="row">
                 <div className="col-sm-12 ">
-                    <AddBtn command={this.toggleModal} />
+                    <AddBtn command={this.toggleModal} actionType={this.changeActionType} />
                     <UserForm isShowModal={this.state.isShowModal} toggleModal={this.toggleModal} addUser={this.addUser} />
                 </div>
                 <div className="col-sm-12 mt-3">
@@ -56,6 +62,7 @@ export default class UserContainer extends Component {
                             text={"Empty user list !"}
                         /> :
                         <UserList
+                            toggleModal={this.toggleModal}
                             deleteUserById={this.deleteUserById}
                             editUserById={this.editUserById}
                             userList={this.state.users}
