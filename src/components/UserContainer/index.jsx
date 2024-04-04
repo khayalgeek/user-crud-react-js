@@ -31,9 +31,13 @@ export default class UserContainer extends Component {
     }
 
     deleteUserById(id) {
-        this.setState(prevState => ({
-            users: prevState.users.filter(user => user.id !== id)
-        }));
+        const response = confirm("Silmək istədiyinizə əminsiniz ?");
+        if (response) {
+            this.setState(prevState => ({
+                users: prevState.users.filter(user => user.id !== id)
+            }));
+        }
+        
     }
 
     editUserById(id, payload) {
