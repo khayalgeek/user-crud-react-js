@@ -3,6 +3,7 @@ import { AddBtn } from "../Buttons";
 import UserForm from "../Form";
 import { AlertEmptyUserList } from "../Alert";
 import UserList from "../UserList";
+import Swal from "sweetalert2";
 
 export default class UserContainer extends Component {
 
@@ -31,13 +32,29 @@ export default class UserContainer extends Component {
     }
 
     deleteUserById(id) {
-        const response = confirm("Silmək istədiyinizə əminsiniz ?");
-        if (response) {
-            this.setState(prevState => ({
-                users: prevState.users.filter(user => user.id !== id)
-            }));
-        }
-        
+
+
+
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                this.setState(prevState => ({
+                    users: prevState.users.filter(user => user.id !== id)
+                }));
+                Swal.fire({
+                    title: "Deleted!",
+                    text: "Your file has been deleted.",
+                    icon: "success"
+                });
+            }
+        });
     }
 
     editUserById(id, payload) {
