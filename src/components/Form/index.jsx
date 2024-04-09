@@ -1,5 +1,5 @@
 import React from "react";
-import {v4 as uuidv} from 'uuid';
+import { v4 as uuidv } from 'uuid';
 import {
     Button,
     Form,
@@ -11,6 +11,7 @@ import {
     ModalFooter,
     ModalHeader
 } from "reactstrap"
+import CRUD from "../../actions/crud";
 
 const setValue = (obj, key, value) => {
     return {
@@ -21,7 +22,7 @@ const setValue = (obj, key, value) => {
 
 
 
-const UserForm = ({ isShowModal, toggleModal, addUser, editUser }) => {
+const UserForm = ({userId, isShowModal, toggleModal, addUser, editUser,actionType }) => {
 
 
     const [form, setForm] = React.useState({
@@ -30,16 +31,23 @@ const UserForm = ({ isShowModal, toggleModal, addUser, editUser }) => {
         email: ""
     })
 
-    const handleSubmitUserForm = () =>{
-        const id = generateUserId();
-        addUser({...form, id: id});
+    const handleSubmitUserForm = () => {
+        switch (actionType) {
+            case CRUD.created:
+                const id = generateUserId();
+                addUser({ ...form, id: id });
+                break;
+            case CRUD.updated:
+                editUser(userId, form)
+                break;
+            default:
+                break;
+        }
+
     }
 
-    const handleSubmitEditUser = () =>{
-        editUser(form)
-    }
-    
-    const generateUserId = () => uuidv().slice(0,4);
+
+    const generateUserId = () => uuidv().slice(0, 4);
 
     return (
         <div>
@@ -94,7 +102,7 @@ const UserForm = ({ isShowModal, toggleModal, addUser, editUser }) => {
                 </ModalBody>
                 <ModalFooter>
                     <Button color="primary" onClick={() => {
-                        handleSubmitUserForm(); 
+                        handleSubmitUserForm();
                         toggleModal();
                     }}>
                         Add

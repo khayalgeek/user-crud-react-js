@@ -4,6 +4,7 @@ import UserForm from "../Form";
 import { AlertEmptyUserList } from "../Alert";
 import UserList from "../UserList";
 import Swal from "sweetalert2";
+import CRUD from "../../actions/crud";
 
 export default class UserContainer extends Component {
 
@@ -12,11 +13,13 @@ export default class UserContainer extends Component {
         this.state = {
             isShowModal: false,
             actionType: "",
-            users: []
+            users: [],
+            id: ""
         }
         this.deleteUserById = this.deleteUserById.bind(this);
         this.editUserById = this.editUserById.bind(this);
         this.changeActionType = this.changeActionType.bind(this);
+        this.handleSetId = this.handleSetId.bind(this)
     }
 
     toggleModal = () => {
@@ -32,9 +35,6 @@ export default class UserContainer extends Component {
     }
 
     deleteUserById(id) {
-
-
-
         Swal.fire({
             title: "Are you sure?",
             text: "You won't be able to revert this!",
@@ -59,9 +59,11 @@ export default class UserContainer extends Component {
 
     editUserById(id, payload) {
         const { users } = this.state;
-        const userId = users.findIndex(user => user.id === id);
+        const userIndex = users.findIndex(user => user.id === id);
+        let usersList = this.state.users;
+        usersList[userIndex] ={id:id,...payload};
         this.setState(users => ({
-            users: users[userId] = payload
+            users: [...usersList]
         }))
     }
 
@@ -70,12 +72,26 @@ export default class UserContainer extends Component {
     }
 
 
+    handleSetId(id) {
+        this.setState({
+            id: id
+        })
+    }
+
     render() {
         return <div className="container mt-4">
             <div className="row">
                 <div className="col-sm-12 ">
                     <AddBtn command={this.toggleModal} actionType={this.changeActionType} />
-                    <UserForm isShowModal={this.state.isShowModal} toggleModal={this.toggleModal} addUser={this.addUser} />
+                    <UserForm
+                        userId={this.state.id}
+                        actionType={this.state.actionType}
+                        isShowModal={this.state.isShowModal}
+                        toggleModal={this.toggleModal}
+                        addUser={this.addUser}
+                        editUser={this.editUserById}
+                    />
+
                 </div>
                 <div className="col-sm-12 mt-3">
                     {this.state.users.length <= 0 ?
@@ -83,9 +99,10 @@ export default class UserContainer extends Component {
                             text={"Empty user list !"}
                         /> :
                         <UserList
+                            handleSetId={this.handleSetId}
                             toggleModal={this.toggleModal}
                             deleteUserById={this.deleteUserById}
-                            editUserById={this.editUserById}
+                            changeActionType={this.changeActionType}
                             userList={this.state.users}
                         />
                     }

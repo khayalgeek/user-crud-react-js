@@ -1,12 +1,13 @@
 import React, { Component } from "react";
 import { Table } from "reactstrap";
 import { DeleteBtn, EditBtn } from "../Buttons";
+import CRUD from "../../actions/crud";
 
-export default class UserList extends Component{
-    constructor(props){
+export default class UserList extends Component {
+    constructor(props) {
         super(props)
     }
-    render(){
+    render() {
         return (
             <Table
                 bordered
@@ -52,8 +53,12 @@ export default class UserList extends Component{
                                     {email}
                                 </td>
                                 <td data-id={id} className="d-flex justify-content-around">
-                                    <EditBtn  command={()=>this.props.toggleModal()} />
-                                    <DeleteBtn command={()=>this.props.deleteUserById(id)} />
+                                    <EditBtn
+                                        id={id}
+                                        handleSetId={this.props.handleSetId}
+                                        actionType={() => { this.props.changeActionType(CRUD.updated) }}
+                                        command={() => { this.props.toggleModal() }} />
+                                    <DeleteBtn command={() => this.props.deleteUserById(id)} />
                                 </td>
                             </tr>
                         );

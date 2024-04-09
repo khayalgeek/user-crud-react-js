@@ -1,4 +1,4 @@
-import { CRUD } from "../../actions/crud";
+import CRUD from "../../actions/crud";
 
 export const AddBtn = ({ command, actionType }) => {
     return <button
@@ -10,10 +10,15 @@ export const AddBtn = ({ command, actionType }) => {
     >Add user</button>
 }
 
-export const EditBtn = ({ command }) => {
+export const EditBtn = ({ command, actionType,id, handleSetId }) => {
+    console.log(id);
     return <button
         className="btn btn-success"
-        onClick={() => command()}
+        onClick={() => {
+            handleSetId(id);
+            command();
+            actionType()
+        }}
     >Edit user</button>
 }
 

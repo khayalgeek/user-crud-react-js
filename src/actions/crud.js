@@ -1,4 +1,7 @@
-export class CRUD {
+export default class CRUD {
+    constructor(){
+        
+    }
     static created = "created";
     static ready = "ready";
     static updated = "updated";
